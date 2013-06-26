@@ -13,24 +13,27 @@ import org.ejmc.android.simplechat.model.RequestError;
  */
 public class NetResponseHandler<Response> {
 
+	Response datos; 
 	/**
 	 * Handles a successful request
 	 * */
 	public void onSuccess(Response response) {
+		datos = response;
+	}
 
+	public Response getDatos() {
+		return datos;
 	}
 
 	/**
 	 * Handles a network error.
 	 */
 	public void onNetError() {
-
 	}
 
 	/**
 	 * Handles a request error.
 	 */
 	public void onRequestError(RequestError error) {
-
 	}
 }
