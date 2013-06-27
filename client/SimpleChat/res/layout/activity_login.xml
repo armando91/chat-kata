@@ -70,7 +70,7 @@
             android:id="@+id/exitButton"
             android:layout_width="122dp"
             android:layout_height="wrap_content"
-            android:onClick="exit"
+            android:onClick="salir"
             android:text="@string/Exit" />
 
     </LinearLayout>
