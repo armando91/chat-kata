@@ -28,6 +28,7 @@ import android.widget.Toast;
 public class ChatActivity extends Activity {
 
 	private String userNick;
+	private String url;
 	private TextView sendText;
 	private NetRequests nRequests;
 	private NetResponseHandler<Message> netResponseHandlerSend;
@@ -46,7 +47,6 @@ public class ChatActivity extends Activity {
 
 	private Handler handlerGet = new Handler() {
 		public void handleMessage(android.os.Message chatList) {
-			//StringBuilder chatText = new StringBuilder();
 			ArrayList<Message> messages = ((ChatList) chatList.obj)
 					.getMessagessList();
 			for (Message _msg : messages) {
@@ -54,7 +54,6 @@ public class ChatActivity extends Activity {
 						+ "\n");
 				scrollChat.fullScroll(View.FOCUS_DOWN);
 			}
-			//chat.append(chatText.toString());
 		}
 	};
 
@@ -72,7 +71,7 @@ public class ChatActivity extends Activity {
 					@Override
 					public void run() {
 						netResponseHandlerGet = new NetResponseHandler<ChatList>();
-						new NetRequests().chatGET(sequence, netResponseHandlerGet);
+						new NetRequests().chatGET(sequence, url, netResponseHandlerGet);
 						android.os.Message chatlist = new android.os.Message();
 						chatlist.obj = netResponseHandlerGet.getDatos();
 						sequence = ((ChatList)chatlist.obj).getSequence();
@@ -86,6 +85,7 @@ public class ChatActivity extends Activity {
 
 		this.userNick = getSharedPreferences("userInfo", MODE_PRIVATE)
 				.getString("userNick", "unKnown");
+		this.url = getSharedPreferences("userInfo", MODE_PRIVATE).getString("url", "Wrong Server");
 		// Show the Up button in the action bar.
 		setupActionBar();
 		sendText = (TextView) findViewById(R.id.inputChat);
@@ -126,7 +126,7 @@ public class ChatActivity extends Activity {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				nRequests.chatPOST(new Message(userNick, text),
+				nRequests.chatPOST(new Message(userNick, text),url,
 						netResponseHandlerSend);
 				String controlSend = netResponseHandlerSend.getDatos() != null ? "Message Sent"
 						: "Error";

@@ -32,10 +32,10 @@ public class NetRequests {
 	 * @param seq
 	 * @param handler
 	 */
-	public void chatGET(int seq, NetResponseHandler<ChatList> handler) {
+	public void chatGET(int seq, String url, NetResponseHandler<ChatList> handler) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(
-				"http://172.20.0.9/chat-kata/api/chat?seq=" + seq);
+				url+"?seq=" + seq);
 		try {
 			HttpResponse response = httpclient.execute(httpget);
 			if (response.getStatusLine().getStatusCode() == 200) {
@@ -78,9 +78,9 @@ public class NetRequests {
 	 * @param message
 	 * @param handler
 	 */
-	public void chatPOST(Message message, NetResponseHandler<Message> handler) {
+	public void chatPOST(Message message, String url, NetResponseHandler<Message> handler) {
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost("http://172.20.0.9/chat-kata/api/chat");
+		HttpPost httppost = new HttpPost(url);
 		try {
 			httppost.setHeader("content-type", "application/json");
 			String json;

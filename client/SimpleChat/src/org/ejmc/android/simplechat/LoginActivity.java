@@ -45,18 +45,21 @@ public class LoginActivity extends Activity {
 	}
 
 	private void loginChat(View view) {
-		TextView tv = (TextView) findViewById(R.id.loginText);
-		String myNick = tv.getText().toString();
+		TextView loginText = (TextView) findViewById(R.id.loginText);
+		String myNick = loginText.getText().toString();
+		TextView urlText = (TextView) findViewById(R.id.urlField);
+		String url = urlText.getText().toString();
 		try {
 			if (myNick.compareTo("") != 0) {
 				SharedPreferences settings = getSharedPreferences("userInfo", MODE_PRIVATE);
 				SharedPreferences.Editor mEdit= settings.edit();
 				mEdit.putString("userNick", myNick);
+				mEdit.putString("url", url);
 				mEdit.commit();
 				Intent loginIntent = new Intent(this, ChatActivity.class);
 				startActivity(loginIntent);
 			} else {
-				Toast notification = Toast.makeText(getApplicationContext(), "Put your nick!", Toast.LENGTH_SHORT);
+				Toast notification = Toast.makeText(getApplicationContext(), "Nick needed!!", Toast.LENGTH_SHORT);
 				notification.show();
 			}
 		} catch (NullPointerException npe) {
