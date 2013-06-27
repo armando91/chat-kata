@@ -20,15 +20,15 @@
             android:layout_height="338dp"
             android:orientation="vertical" >
 
-            <EditText
+            <TextView
                 android:id="@+id/chatText"
                 android:layout_width="match_parent"
                 android:layout_height="334dp"
                 android:ems="10"
-                android:gravity="center_vertical|top" >
+                android:gravity="bottom|center_vertical" >
 
                 <requestFocus />
-            </EditText>
+            </TextView>
         </LinearLayout>
     </ScrollView>
 

@@ -16,6 +16,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class ChatActivity extends Activity {
 	private NetResponseHandler<Message> netResponseHandlerSend;
 	private NetResponseHandler<ChatList> netResponseHandlerGet;
 	private Timer timer; 
+	private ScrollView scrollChat;
+	private TextView chat;
 
 	private Handler handlerSend = new Handler() {
 		public void handleMessage(android.os.Message notification) {
@@ -43,15 +46,15 @@ public class ChatActivity extends Activity {
 
 	private Handler handlerGet = new Handler() {
 		public void handleMessage(android.os.Message chatList) {
-			TextView chat = (TextView) findViewById(R.id.chatText);
-			StringBuilder chatText = new StringBuilder();
-			ArrayList<Message> msg = ((ChatList) chatList.obj)
+			//StringBuilder chatText = new StringBuilder();
+			ArrayList<Message> messages = ((ChatList) chatList.obj)
 					.getMessagessList();
-			for (Message _msg : msg) {
-				chatText.append("[" + _msg.getNick() + "]: " + _msg.getMsg()
+			for (Message _msg : messages) {
+				chat.append("[" + _msg.getNick() + "]: " + _msg.getMsg()
 						+ "\n");
+				scrollChat.fullScroll(View.FOCUS_DOWN);
 			}
-			chat.append(chatText.toString());
+			//chat.append(chatText.toString());
 		}
 	};
 
@@ -88,6 +91,8 @@ public class ChatActivity extends Activity {
 		sendText = (TextView) findViewById(R.id.inputChat);
 		nRequests = new NetRequests();
 		netResponseHandlerSend = new NetResponseHandler<Message>();
+		chat = (TextView) findViewById(R.id.chatText);
+		scrollChat = (ScrollView) findViewById(R.id.scrollChat);
 
 	}
 
