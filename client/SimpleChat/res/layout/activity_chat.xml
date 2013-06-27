@@ -22,8 +22,8 @@
 
             <EditText
                 android:id="@+id/chatText"
-                android:layout_width="wrap_content"
-                android:layout_height="204dp"
+                android:layout_width="match_parent"
+                android:layout_height="334dp"
                 android:editable="false"
                 android:ems="10"
                 android:gravity="center_vertical|top" >
@@ -37,7 +37,7 @@
         android:id="@+id/textNewMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Message:"
+        android:text="@string/NewMessage"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -58,6 +58,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:onClick="sendMessage"
-        android:text="Enviar" />
+        android:text="@string/Send" />
 
 </LinearLayout>

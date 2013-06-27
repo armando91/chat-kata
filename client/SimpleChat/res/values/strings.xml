@@ -2,5 +2,11 @@
 <resources>
 
     <string name="app_name">SimpleChat</string>
+    <string name="Exit">Exit</string>
+    <string name="LogIn">Log In</string>
+    <string name="chatkata">Chat Kata</string>
+    <string name="Nick">Nick</string>
+    <string name="NewMessage">New Message</string>
+    <string name="Send">Send</string>
 
 </resources>

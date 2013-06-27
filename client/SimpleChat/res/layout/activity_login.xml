@@ -15,9 +15,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Chat Kata\n"
+        android:text="@string/chatkata"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="60sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:orientation="vertical" >
+    </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
@@ -31,7 +37,7 @@
             android:id="@+id/textNewMsg"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="Nick:"
+            android:text="@string/Nick"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="20sp" />
 
@@ -51,6 +57,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:onClick="loginChat"
-        android:text="Log In" />
+        android:text="@string/LogIn" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|right"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:onClick="exit"
+            android:text="@string/Exit" />
+
+    </LinearLayout>
 
 </LinearLayout>
