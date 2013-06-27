@@ -45,7 +45,7 @@ public class LoginActivity extends Activity {
 	}
 
 	private void loginChat(View view) {
-		TextView tv = (TextView) findViewById(R.id.chatText);
+		TextView tv = (TextView) findViewById(R.id.loginText);
 		String myNick = tv.getText().toString();
 		try {
 			if (myNick.compareTo("") != 0) {
@@ -64,13 +64,13 @@ public class LoginActivity extends Activity {
 			notification.show();
 		}
 	}
-	
+
 	public void salir(View view){
 		Toast toast= Toast.makeText(getApplicationContext(), "Bye", Toast.LENGTH_SHORT );
 		toast.show();
 		finish();
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();

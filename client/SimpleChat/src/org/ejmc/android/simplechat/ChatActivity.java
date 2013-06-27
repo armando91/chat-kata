@@ -132,7 +132,7 @@ public class ChatActivity extends Activity {
 		}).start();
 
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
