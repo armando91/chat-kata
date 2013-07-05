@@ -13,7 +13,7 @@
     <ScrollView
         android:id="@+id/scrollChat"
         android:layout_width="match_parent"
-        android:layout_height="356dp" >
+        android:layout_height="246dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             <TextView
                 android:id="@+id/chatText"
                 android:layout_width="match_parent"
-                android:layout_height="334dp"
+                android:layout_height="236dp"
                 android:ems="10"
                 android:gravity="bottom|center_vertical" >
 

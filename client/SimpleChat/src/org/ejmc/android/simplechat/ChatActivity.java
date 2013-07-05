@@ -33,7 +33,8 @@ public class ChatActivity extends Activity {
 	private NetRequests nRequests;
 	private NetResponseHandler<Message> netResponseHandlerSend;
 	private NetResponseHandler<ChatList> netResponseHandlerGet;
-	private Timer timer; 
+	private Timer timer;
+
 	private ScrollView scrollChat;
 	private TextView chat;
 
@@ -50,10 +51,23 @@ public class ChatActivity extends Activity {
 			ArrayList<Message> messages = ((ChatList) chatList.obj)
 					.getMessagessList();
 			for (Message _msg : messages) {
-				chat.append("[" + _msg.getNick() + "]: " + _msg.getMsg()
-						+ "\n");
+				chat.append("[" + _msg.getNick() + "]: " + _msg.getMsg() + "\n");
 				scrollChat.fullScroll(View.FOCUS_DOWN);
 			}
+		}
+	};
+
+	private TimerTask tareaTimer = new TimerTask() {
+		int sequence = 0;
+
+		@Override
+		public void run() {
+			netResponseHandlerGet = new NetResponseHandler<ChatList>();
+			new NetRequests().chatGET(sequence, url, netResponseHandlerGet);
+			android.os.Message chatlist = new android.os.Message();
+			chatlist.obj = netResponseHandlerGet.getDatos();
+			sequence = ((ChatList) chatlist.obj).getSequence();
+			handlerGet.sendMessage(chatlist);
 		}
 	};
 
@@ -66,18 +80,6 @@ public class ChatActivity extends Activity {
 
 			@Override
 			public void run() {
-				TimerTask tareaTimer = new TimerTask() {
-					int sequence = 0; 
-					@Override
-					public void run() {
-						netResponseHandlerGet = new NetResponseHandler<ChatList>();
-						new NetRequests().chatGET(sequence, url, netResponseHandlerGet);
-						android.os.Message chatlist = new android.os.Message();
-						chatlist.obj = netResponseHandlerGet.getDatos();
-						sequence = ((ChatList)chatlist.obj).getSequence();
-						handlerGet.sendMessage(chatlist);
-					}
-				};
 				timer = new Timer();
 				timer.schedule(tareaTimer, 0, 1000);
 			}
@@ -85,7 +87,8 @@ public class ChatActivity extends Activity {
 
 		this.userNick = getSharedPreferences("userInfo", MODE_PRIVATE)
 				.getString("userNick", "unKnown");
-		this.url = getSharedPreferences("userInfo", MODE_PRIVATE).getString("url", "Wrong Server");
+		this.url = getSharedPreferences("userInfo", MODE_PRIVATE).getString(
+				"url", "Wrong Server");
 		// Show the Up button in the action bar.
 		setupActionBar();
 		sendText = (TextView) findViewById(R.id.inputChat);
@@ -126,7 +129,7 @@ public class ChatActivity extends Activity {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				nRequests.chatPOST(new Message(userNick, text),url,
+				nRequests.chatPOST(new Message(userNick, text), url,
 						netResponseHandlerSend);
 				String controlSend = netResponseHandlerSend.getDatos() != null ? "Message Sent"
 						: "Error";
@@ -150,23 +153,25 @@ public class ChatActivity extends Activity {
 
 	@Override
 	protected void onPause() {
-		// mp.pause();
 		super.onPause();
-
+		 timer.cancel();
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
+		 timer.cancel();
 	}
 
 	@Override
 	protected void onRestart() {
+		 timer.schedule(tareaTimer, 0, 1000);
 		super.onRestart();
 	}
 
 	@Override
 	protected void onDestroy() {
+		 timer.cancel();
 		super.onDestroy();
 	}
 }
